@@ -1,0 +1,366 @@
+/* General Declarations */
+html {
+    -webkit-text-size-adjust: 100%;
+    font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol, Noto Color Apple Color Emoji;
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-tap-highlight-color: transparent;
+}
+html[data-bs-theme='dark'] body {
+    background-image: url('../assets/waves_dark.jpg');
+}
+html[data-bs-theme='light'] body {
+    background-image: url('../assets/waves_light.jpg');
+}
+body {
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 3dvh;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9000;
+}
+header img {
+    height: 2.5dvh;
+}
+header #menubar {
+    font-weight: 700;
+    color: var(--bs-black);
+    opacity: 1;
+    font-size: small;
+}
+
+/* App Window */
+#desktop a {
+    text-decoration: none;
+}
+
+#desktop span {
+    line-height: 9px;
+    vertical-align: 50%;
+}
+
+#desktop .window {
+    position: absolute;
+    background: var(--bs-body-bg);
+    width: 50dvw;
+    height: 70dvh;
+    top: 8dvh;
+    left: 25dvw;
+    border: 1px solid var(--bs-secondary-bg);
+    border-radius: 6px;
+    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
+    overflow: auto;
+    resize: both;
+}
+
+@media (min-width: 0px) and (max-width: 767.98px) {
+    #desktop .window {
+        width: 95dvw;
+        left: 2.5dvw;
+        resize: none;
+    }
+}
+
+@media (min-width: 767.99px) and (max-width: 1399.98px) {
+    #desktop .window {
+        width: 75dvw;
+        left: 12.5dvw;
+        resize: none;
+    }
+}
+
+#desktop .titlebar {
+    background: var(--bs-secondary-bg);
+    color: var(--bs-text-body-emphasis);
+    font-size: 11pt;
+    line-height: 30px;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    border-top: 1px solid var(--bs-secondary-bg);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    cursor: default;
+}
+
+#desktop .buttons {
+    padding-left: 8px;
+    padding-top: 9px;
+    float: left;
+    line-height: 0px;
+}
+
+#desktop .buttons:hover a {
+    visibility: visible;
+}
+
+#desktop .close {
+    background: #ff5c5c;
+    font-size: 8pt;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #e33e41;
+    border-radius: 50%;
+    display: inline-block;
+}
+#desktop .close:active {
+    background: #c14645;
+    border: 1px solid #b03537;
+}
+#desktop .close:active .closebutton {
+    color: #4e0002;
+}
+#desktop .closebutton {
+    color: #820005;
+    visibility: hidden;
+    cursor: default;
+}
+
+#desktop .zoom {
+    background: #00ca56;
+    font-size: 8pt;
+    margin-left: 6px;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #14ae46;
+    border-radius: 50%;
+    display: none;
+}
+#desktop .zoom:active {
+    background: #029740;
+    border: 1px solid #128435;
+}
+#desktop .zoom:active .zoombutton {
+    color: #003107;
+}
+#desktop .zoombutton {
+    color: #006519;
+    visibility: hidden;
+    cursor: default;
+}
+
+#desktop .content {
+    padding: 10px;
+}
+
+/* Dock */
+@-webkit-keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+@-moz-keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+.dock {
+    position: absolute;
+    height: 10dvh;
+    min-height: 10dvh;
+    width: 48dvh;
+    margin: 0;
+    bottom: 2dvh;
+    border-radius: 25px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 0 0.2px rgb(245 245 245 / 10%),
+        hsla(0, 0%, 0%, 0.3) 2px 1px 15px 1px;
+    z-index: 9000;
+}
+.dock-container {
+    display: flex;
+    height: 10dvh;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+.dock img {
+    display: inline-block;
+    position: relative;
+    height: 8dvh;
+    width: 8dvh;
+    padding: 0.5dvh;
+    margin-bottom: 1dvh;
+    bottom: 0px;
+    vertical-align: baseline;
+    transition: width 0.2s, height 0.2s ease-in-out;
+    left: 0;
+    right: 0;
+    border: none;
+}
+.dock img:hover {
+    height: 10dvh;
+    width: auto;
+    bottom: 1dvh;
+}
+.dock .button-container:has(img:hover) + .button-container img,
+.dock .button-container:has(+ .button-container > img:hover) img,
+.dock .button-container:has(img:hover) + .dock-sep + .button-container img,
+.dock .button-container:has(+ .dock-sep + .button-container > img:hover) img {
+    height: 9dvh;
+    width: auto;
+    bottom: 0.5dvh;
+}
+.dock img:hover + .active-dot {
+    left: 5dvh;
+}
+.dock em:has(+ img:hover) {
+    display: block;
+}
+.dock .active {
+    animation: bounce 0.3s 6 alternate ease-out;
+    opacity: 0.9;
+}
+.dock .active + .active-dot {
+    visibility: visible;
+}
+.dock .active-dot {
+    position: relative;
+    visibility: hidden;
+    bottom: 1px;
+    left: 4dvh;
+    width: 3px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    margin: 0;
+    padding: 0;
+}
+.dock .button-container {
+    display: flex;
+    flex-direction: column;
+}
+.dock em {
+    position: absolute;
+    top: -60px;
+    align-self: center;
+    display: none;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.dock em:after {
+    content: ' ';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    margin-left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.6);
+    border-bottom: none;
+    transition: opacity 0.5s;
+}
+.dock em span {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 14px;
+    font-style: normal;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
+    border-radius: 12px;
+}
+.dock .dock-sep {
+    align-self: center;
+}
+.dock .dock-sep-line {
+    width: 1px;
+    margin-left: 0.5dvh;
+    margin-right: 0.5dvh;
+    height: 7dvh;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Contact Form */
+.form-popup {
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+}
+.form-container {
+    box-sizing: border-box;
+    padding: 10px;
+}
+.form-container input[type=text], .form-container input[type=email], .form-container textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+
+} 
+.form-container input[type=text]:focus, .form-container input[type=email]:focus, .form-container textarea:focus {
+    background-color: var(--bs-secondary-bg);
+    outline: none;
+}
+.form-container .btn {
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+.form-container #contact-result {
+    display: none;
+    color: #ffffff;
+    background-color: #1B3330;
+    padding: 16px 20px;
+    border: none;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
