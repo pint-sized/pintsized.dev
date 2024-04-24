@@ -364,3 +364,23 @@ header #menubar {
     margin-bottom:10px;
     opacity: 0.8;
 }
+
+/* Home page typing effect */
+#spin {
+    vertical-align: unset !important;
+}
+#spin:after {
+    content:"";
+    animation: spin 10s linear infinite;
+}
+@keyframes spin {
+    0%  { content: "";}
+    25% { content: "desktop";}
+    50% { content: "web";}
+    75% { content: "mobile";}
+}
+
+/* Home page image hover effect */
+#main-logo:hover {
+    animation: bounce 0.3s 6 alternate ease-out;
+}
