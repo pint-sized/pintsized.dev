@@ -130,6 +130,8 @@ function dragElement(elmnt) {
         pos4 = 0;
     document.querySelector('#' + elmnt.id + ' .titlebar').onmousedown =
         dragMouseDown;
+    document.querySelector('#' + elmnt.id + ' .titlebar').ontouchstart =
+        dragMouseDown;
 
     function dragMouseDown(e) {
         e.preventDefault();
@@ -137,14 +139,19 @@ function dragElement(elmnt) {
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
+        document.ontouchend = closeDragElement;
+        document.ontouchmove = elementDrag;
     }
 
     function elementDrag(e) {
+        clientX = e.clientX || e.touches[0].clientX;
+        clientY = e.clientY || e.touches[0].clientY;
+
         e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+        pos1 = pos3 - clientX;
+        pos2 = pos4 - clientY;
+        pos3 = clientX;
+        pos4 = clientY;
         let top = elmnt.offsetTop - pos2;
 
         let topBoundary = (window.innerHeight * 3) / 100;
@@ -164,6 +171,8 @@ function dragElement(elmnt) {
     function closeDragElement() {
         document.onmouseup = null;
         document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
     }
 }
 
@@ -180,12 +189,15 @@ function handleWindow() {
         focusElement(win);
         document.querySelector('#' + win.id + ' .zoom').style.display =
             'inline-block';
-        document
-            .querySelector('#' + win.id + ' .zoombutton')
-            .addEventListener('click', handleZoom);
-        document
-            .querySelector('#' + win.id + ' .closebutton')
-            .addEventListener('click', () => {
+        const zoomButton = document.querySelector(
+            '#' + win.id + ' .zoombutton'
+        );
+        const closeButton = document.querySelector(
+            '#' + win.id + ' .closebutton'
+        );
+        ['click', 'touchstart'].forEach((e) => {
+            zoomButton.addEventListener(e, handleZoom);
+            closeButton.addEventListener(e, () => {
                 const buttonId = win.id.slice(0, -7);
                 if (buttonId != 'notfound') {
                     document
@@ -194,6 +206,7 @@ function handleWindow() {
                 }
                 win.remove();
             });
+        });
     }
 }
 
@@ -348,20 +361,6 @@ const pageHandler = async (evt = undefined, hash = undefined) => {
             page.documentElement.innerHTML;
     }
 
-    // Set page offset
-    if (windows.length > 0) {
-        let defaultStyle = window.getComputedStyle(
-            document.getElementById(win.id)
-        );
-        let top = defaultStyle.getPropertyValue('top');
-        let left = defaultStyle.getPropertyValue('left');
-        top = parseFloat(top.replace('px', ''));
-        left = parseFloat(left.replace('px', ''));
-        const domEl = document.getElementById(win.id);
-        domEl.style.top = top + 30 + 'px';
-        domEl.style.left = left + 30 + 'px';
-    }
-
     // Update page meta and URL
     document
         .querySelector('meta[name="description"]')
@@ -371,6 +370,19 @@ const pageHandler = async (evt = undefined, hash = undefined) => {
 
     // Handle window management on large viewports
     if (isLargeViewport()) {
+        // Set page offset
+        if (windows.length > 0) {
+            let defaultStyle = window.getComputedStyle(
+                document.getElementById(win.id)
+            );
+            let top = defaultStyle.getPropertyValue('top');
+            let left = defaultStyle.getPropertyValue('left');
+            top = parseFloat(top.replace('px', ''));
+            left = parseFloat(left.replace('px', ''));
+            const domEl = document.getElementById(win.id);
+            domEl.style.top = top + 30 * windows.length + 'px';
+            domEl.style.left = left + 30 * windows.length + 'px';
+        }
         handleWindow();
     }
 

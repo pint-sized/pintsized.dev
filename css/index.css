@@ -100,7 +100,7 @@ header #menubar {
     border-top: 1px solid var(--bs-secondary-bg);
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    user-select: none;
+    user-select: none; 
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -115,8 +115,15 @@ header #menubar {
     line-height: 0px;
 }
 
-#desktop .buttons:hover a {
-    visibility: visible;
+@media (hover: hover) {
+    #desktop .buttons:hover a {
+        visibility: visible;
+    }
+}
+@media (hover: none) {
+    #desktop .buttons a {
+        visibility: visible;
+    }
 }
 
 #desktop .close {
@@ -233,25 +240,28 @@ header #menubar {
     right: 0;
     border: none;
 }
-.dock img:hover {
-    height: 10dvh;
-    width: auto;
-    bottom: 1dvh;
+@media (hover: hover) {
+    .dock img:hover {
+        height: 10dvh;
+        width: auto;
+        bottom: 1dvh;
+    }
+    .dock .button-container:has(img:hover) + .button-container img,
+    .dock .button-container:has(+ .button-container > img:hover) img,
+    .dock .button-container:has(img:hover) + .dock-sep + .button-container img,
+    .dock .button-container:has(+ .dock-sep + .button-container > img:hover) img {
+        height: 9dvh;
+        width: auto;
+        bottom: 0.5dvh;
+    }
+    .dock img:hover + .active-dot {
+        left: 5dvh;
+    }
+    .dock em:has(+ img:hover) {
+        display: block;
+    }
 }
-.dock .button-container:has(img:hover) + .button-container img,
-.dock .button-container:has(+ .button-container > img:hover) img,
-.dock .button-container:has(img:hover) + .dock-sep + .button-container img,
-.dock .button-container:has(+ .dock-sep + .button-container > img:hover) img {
-    height: 9dvh;
-    width: auto;
-    bottom: 0.5dvh;
-}
-.dock img:hover + .active-dot {
-    left: 5dvh;
-}
-.dock em:has(+ img:hover) {
-    display: block;
-}
+  
 .dock .active {
     animation: bounce 0.3s 6 alternate ease-out;
     opacity: 0.9;
@@ -352,9 +362,12 @@ header #menubar {
     margin-bottom:10px;
     opacity: 0.8;
 }
-.form-container .btn:hover, .open-button:hover {
-    opacity: 1;
+@media (hover: hover) {
+    .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+    }
 }
+
 .form-container #contact-result {
     display: none;
     color: #ffffff;
