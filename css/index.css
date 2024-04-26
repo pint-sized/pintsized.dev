@@ -397,3 +397,24 @@ header #menubar {
 #main-logo:hover {
     animation: bounce 0.3s 6 alternate ease-out;
 }
+
+/* TaskBridge GIFs */
+#gif-container {
+    display: flex; 
+    gap: 10px; 
+    width: 100%; 
+    justify-content: center;
+    margin-top: 10px;
+}
+#gif-container img {
+    width: 30%;
+}
+@media (min-width: 0px) and (max-width: 767.98px) {
+    #gif-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    #gif-container img {
+        width: 90%;
+    }
+}
